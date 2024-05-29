@@ -2,6 +2,7 @@ import unittest
 import energy_source
 
 class EnergySourceTest(unittest.TestCase):
+
     def test_solarpanel(self):
         solarpanel = energy_source.SolarPanel(area=20, efficiency=15)
         expected_result = 4500
@@ -21,3 +22,11 @@ class EnergySourceTest(unittest.TestCase):
         offshorewindturbine = energy_source.OffshoreWindTurbine(height=70, windspeedaverage=8, corrosionfactor=0.2)
         expected_result = 71680
         self.assertEqual(offshorewindturbine.get_result(), expected_result)
+
+    def test_invalid_data_types(self):
+        with self.assertRaises(TypeError):
+            solarpanel = energy_source.SolarPanel(area="twenty", efficiency=15)
+            solarpanel.validate()
+        with self.assertRaises(TypeError):
+            windturbine = energy_source.WindTurbine(height=50, windspeedaverage="six")
+            windturbine.validate()

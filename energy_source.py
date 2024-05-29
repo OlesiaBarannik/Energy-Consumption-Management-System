@@ -2,9 +2,17 @@ class EnergySource:
 
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
+        self.validate()
 
     def energy_output(self):
         return f"{self.__class__.__name__} AnnualEnergyOutput {round(self.get_result())}"
+
+    def validate(self):
+        for key, value in self.__dict__.items():
+            invalid_keys = ""
+            if not isinstance(value, (int, float)):
+                invalid_keys += key
+                raise TypeError(f"{invalid_keys.title()} must be a number.")
 
 
 class SolarPanel(EnergySource):
