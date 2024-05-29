@@ -8,11 +8,12 @@ class EnergySource:
         return f"{self.__class__.__name__} AnnualEnergyOutput {round(self.get_result())}"
 
     def validate(self):
+        invalid_keys = []
         for key, value in self.__dict__.items():
-            invalid_keys = ""
             if not isinstance(value, (int, float)):
-                invalid_keys += key
-                raise TypeError(f"{invalid_keys.title()} must be a number.")
+                invalid_keys.append(key.title())
+        if invalid_keys:
+            raise TypeError(f"{', '.join(invalid_keys)} must be a number.")
 
 
 class SolarPanel(EnergySource):
