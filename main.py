@@ -1,7 +1,6 @@
 from energy_source import *
 
-input_info = "WindTurbine Height 50 WindSpeedAverage 6"
-
+input_info = "OffshoreWindTurbine Height 70 WindSpeedAverage 8 CorrosionFactor 0.2"
 
 param = input_info.split(" ")
 kwargs = {}
