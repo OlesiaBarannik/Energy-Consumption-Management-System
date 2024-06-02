@@ -54,9 +54,9 @@ class OffshoreWindTurbine(WindTurbine):
         return super().calculate_annual_energy_output(k) * (1 - self.corrosionfactor)
 
     def calculate_resource_depletion_rate(self, k=1200):
-        if self.height <= 0 or self.windspeedaverage <= 0 or (1 - self.corrosionfactor) <= 0:
+        if (1 - self.corrosionfactor) <= 0:
             raise ResourceDepletionRateCalculateError
-        return k / (self.height * self.windspeedaverage * (1 - self.corrosionfactor))
+        return super().calculate_resource_depletion_rate(k) / (1 - self.corrosionfactor)
 
 
 class HydroPlant(EnergySource):
