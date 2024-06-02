@@ -4,7 +4,7 @@ class ResourceDepletionRateCalculateError(Exception):
     pass
 
 
-class EnergySource:
+class EnergySource(ABC):
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
         self.validate()
@@ -67,13 +67,3 @@ class HydroPlant(EnergySource):
         if self.drop <= 0:
             raise ResourceDepletionRateCalculateError
         return self.flowrate / self.drop
-
-
-# class OffshoreWindTurbine(EnergySource):
-#     def calculate_annual_energy_output(self, k=160):
-#         return self.height * self.windspeedaverage * (1 - self.corrosionfactor) * k
-#
-#     def calculate_resource_depletion_rate(self, k=1200):
-#         if self.height  <= 0 or self.windspeedaverage <= 0 or (1 - self.corrosionfactor) <= 0:
-#             raise ResourceDepletionRateCalculateError
-#         return k / (self.height * self.windspeedaverage * (1 - self.corrosionfactor))

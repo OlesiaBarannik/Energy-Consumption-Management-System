@@ -55,3 +55,24 @@ class EnergySourceTest(unittest.TestCase):
         with self.assertRaises(TypeError):
             offshorewindturbine = energy_source.OffshoreWindTurbine(height=70, windspeedaverage="eight", corrosionfactor=0.2)
             offshorewindturbine.validate()
+
+    def test_calculate_resource_depletion_rate_offshorewindturbine(self):
+        with self.assertRaises(energy_source.ResourceDepletionRateCalculateError):
+            error_resource_depletion_rate = energy_source.OffshoreWindTurbine(height=0, windspeedaverage=8, corrosionfactor=0.2)
+            error_resource_depletion_rate.calculate_resource_depletion_rate()
+
+    def test_calculate_resource_depletion_rate_solarpanel(self):
+        with self.assertRaises(energy_source.ResourceDepletionRateCalculateError):
+            error_solarpanel = energy_source.SolarPanel(area=20, efficiency=0)
+            error_solarpanel.calculate_resource_depletion_rate()
+
+    def test_calculate_resource_depletion_rate_windturbine(self):
+        with self.assertRaises(energy_source.ResourceDepletionRateCalculateError):
+            error_windturbinel = energy_source.WindTurbine(height=0, windspeedaverage=6)
+            error_windturbinel.calculate_resource_depletion_rate()
+
+    def test_calculate_resource_depletion_rate_hydroplant(self):
+        with self.assertRaises(energy_source.ResourceDepletionRateCalculateError):
+            error_hydroplant = energy_source.HydroPlant(flowrate=300, drop=0)
+            error_hydroplant.calculate_resource_depletion_rate()
+
